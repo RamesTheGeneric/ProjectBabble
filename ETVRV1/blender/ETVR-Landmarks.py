@@ -1,20 +1,13 @@
-
-
-Eyelids_L = [69631, 69629, 55208, 69627, 69625, 44637, 69642, 37302, 69633, 41122, 55202, 37293, 69621, 37877, 69634, 69635, 55887, 54615, 69619, 69622, 43026, 69623, 42545, 55224, 43809, 55225, 44224, 69626, 44164, 69628, 38676, 42432, 38738, 69632]
-Eyelids_R = [69656, 69654, 68725, 69652, 69650, 42586, 69649, 40760, 69658, 45487, 68719, 45268, 69646, 44586, 69659, 69660, 68492, 68169, 69644, 69647, 50707, 69648, 50636, 68741, 51871, 68742, 42169, 69651, 43069, 69653, 43272, 51539, 40983, 69657]
-Iris_L = [675, 703, 728, 771, 800, 828, 625, 651]
-Iris_R = [6627, 6655, 6680, 6723, 6752, 6780, 6577, 6603]
-Puipl_L = [847, 876, 879, 851, 885, 882, 856, 873]
-Puipl_R = [6799, 6828, 6831, 6803, 6837, 6834, 6808, 6825]
-
-print(len(Eyelids_L))
-
 import bpy, sys, os, getopt, bmesh
 from bpy_extras.object_utils import world_to_camera_view
 
 FRAME_START = bpy.context.scene.frame_start
 FRAME_END = bpy.context.scene.frame_end
 
+
+vertex_list_L = [69631, 69629, 55208, 69627, 69625, 44637, 69642, 37302, 69633, 41122, 55202, 37293, 69621, 37877, 69634, 69635, 55887, 54615, 69619, 69622, 43026, 69623, 42545, 55224, 43809, 55225, 44224, 69626, 44164, 69628, 38676, 42432, 38738, 69632, 
+675, 703, 728, 771, 800, 828, 625, 651, 
+847, 876, 879, 851, 885, 882, 856, 873]
 
 vertex_list_R = [69656, 69654, 68725, 69652, 69650, 42586, 69649, 40760, 69658, 45487, 68719, 45268, 69646, 44586, 69659, 69660, 68492, 68169, 69644, 69647, 50707, 69648, 50636, 68741, 51871, 68742, 42169, 69651, 43069, 69653, 43272, 51539, 40983, 69657, 
 6627, 6655, 6680, 6723, 6752, 6780, 6577, 6603, 
@@ -56,15 +49,15 @@ for frame in range(FRAME_START, FRAME_END+1):
     print(landmarks) 
     filename = bpy.path.basename(bpy.data.filepath)
     filename = os.path.splitext(filename)[0]
-    filename = 'ETVR_Eye_CA_M_' + str(frame) + "_L"
+    filename = 'ETVR_Eye_CA_M_' + str(frame).rjust(4, '0') + "_L"
     csvfilename = filename + '.csv'
     pngfilename = filename + '.png'
 
-    if not os.path.exists(bpy.path.abspath("//" + 'lipimages')):
-        os.makedirs(bpy.path.abspath("//" + 'lipimages'))
-    csvfilepath = bpy.path.abspath("//" + 'lipimages' + "/" + csvfilename)
-    pngfilepath = bpy.path.abspath("//" + 'lipimages' + "/" + pngfilename)
-    csvimagepath = ('lipimages' + '/' + pngfilename)
+    if not os.path.exists(bpy.path.abspath("//" + 'eyecsv')):
+        os.makedirs(bpy.path.abspath("//" + 'eyecsv'))
+    csvfilepath = bpy.path.abspath("//" + 'eyecsv' + "/" + csvfilename)
+    pngfilepath = bpy.path.abspath("//" + 'eyeimages' + "/" + pngfilename)
+    csvimagepath = ('eyeimages' + '/' + pngfilename)
     landmarks.append(csvimagepath)
     joined_string = ','.join(map(str, landmarks)) 
     joined_string = joined_string.replace("[", "")
@@ -74,7 +67,7 @@ for frame in range(FRAME_START, FRAME_END+1):
         file.close()
     
     depsgraph = bpy.context.evaluated_depsgraph_get()
-        
+            
     obj = bpy.data.objects['BabbleCA_M']
 
     bm = bmesh.new()
@@ -83,7 +76,7 @@ for frame in range(FRAME_START, FRAME_END+1):
 
     bm.verts.ensure_lookup_table()
     landmarks = []
-    for value in vertex_list:
+    for value in vertex_list_R:
         vert = bm.verts[value]
         vert.select = True
         # local to global coordinates
@@ -100,15 +93,15 @@ for frame in range(FRAME_START, FRAME_END+1):
     print(landmarks) 
     filename = bpy.path.basename(bpy.data.filepath)
     filename = os.path.splitext(filename)[0]
-    filename = 'ETVR_Eye_CA_M_' + str(frame) +  "_R"
+    filename = 'ETVR_Eye_CA_M_' + str(frame).rjust(4, '0') + "_R"
     csvfilename = filename + '.csv'
     pngfilename = filename + '.png'
 
-    if not os.path.exists(bpy.path.abspath("//" + 'lipimages')):
-        os.makedirs(bpy.path.abspath("//" + 'lipimages'))
-    csvfilepath = bpy.path.abspath("//" + 'lipimages' + "/" + csvfilename)
-    pngfilepath = bpy.path.abspath("//" + 'lipimages' + "/" + pngfilename)
-    csvimagepath = ('lipimages' + '/' + pngfilename)
+    if not os.path.exists(bpy.path.abspath("//" + 'eyecsv')):
+        os.makedirs(bpy.path.abspath("//" + 'eyecsv'))
+    csvfilepath = bpy.path.abspath("//" + 'eyecsv' + "/" + csvfilename)
+    pngfilepath = bpy.path.abspath("//" + 'eyeimages' + "/" + pngfilename)
+    csvimagepath = ('eyeimages' + '/' + pngfilename)
     landmarks.append(csvimagepath)
     joined_string = ','.join(map(str, landmarks)) 
     joined_string = joined_string.replace("[", "")
