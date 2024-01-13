@@ -292,6 +292,7 @@ class CameraWidget:
                 self.config.roi_window_w = abs(self.x0 - self.x1)
                 self.config.roi_window_h = abs(self.y0 - self.y1)
                 self.main_config.save()
+                
         if event == self.gui_autoroi:
             print("Auto ROI")
             self.x1 = 120
