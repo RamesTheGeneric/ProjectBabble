@@ -53,7 +53,7 @@ os.system("color")  # init ANSI color
 # https://github.com/opencv/opencv/issues/17687
 os.environ["OPENCV_VIDEOIO_MSMF_ENABLE_HW_TRANSFORMS"] = "0"
 page_url = "https://github.com/Project-Babble/ProjectBabble/releases/latest"
-appversion = "Babble v2.0.7"
+appversion = AppConstants.VERSION
 
 
 def timerResolution(toggle):

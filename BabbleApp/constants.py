@@ -13,7 +13,7 @@ class UIConstants:
 
 
 class AppConstants:
-    VERSION = "Babble v2.0.7"
+    VERSION = "Babble v2.1.0 RC5"
     GITHUB_REPO_URL = "https://github.com/Project-Babble/ProjectBabble/releases/latest"
     GITHUB_API_URL = (
         "https://api.github.com/repos/Project-Babble/ProjectBabble/releases/latest"
